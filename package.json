@@ -1,8 +1,8 @@
 {
   "type": "module",
   "scripts": {
-    "install": "bun i --no-save",
-    "start": "bun app.js"
+    "install": "pnpm i",
+    "start": "node app.js"
   },
   "dependencies": {
     "@libsql/client": "^0.4.3",
