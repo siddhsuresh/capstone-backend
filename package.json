@@ -1,7 +1,7 @@
 {
   "type": "module",
   "scripts": {
-    "install": "pnpm i",
+    "install": "pnpm i --no-frozen-lockfile",
     "start": "node app.js"
   },
   "dependencies": {
