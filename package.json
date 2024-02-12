@@ -1,0 +1,13 @@
+{
+  "type": "module",
+  "scripts": {
+    "install": "bun i --no-save",
+    "start": "bun app.js"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.4.3",
+    "express": "^4.18.2",
+    "socket.io": "^4.7.4",
+    "@blitzjs/auth": "2.0.4"
+  }
+}
