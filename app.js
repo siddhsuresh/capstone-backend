@@ -37,7 +37,6 @@ const blitzServerAuth = AuthServerPlugin({
         `SELECT * FROM Session WHERE handle = '${handle}'`
       );
       const session = rows[0];
-      console.log("getting session", handle, session);
       return {
         ...session,
         expiresAt: new Date(
@@ -53,7 +52,6 @@ const blitzServerAuth = AuthServerPlugin({
       };
     },
     createSession: async (session) => {
-      console.log("creating session", session);
       const { rows } = await turso.execute(
         `INSERT INTO Session (handle, expiresAt,antiCSRFToken,hashedSessionToken,userId) VALUES ('${session.handle}', '${session.expiresAt}', '${session.antiCSRFToken}', '${session.hashedSessionToken}', '${session.userId}') RETURNING *`
       );
@@ -63,7 +61,6 @@ const blitzServerAuth = AuthServerPlugin({
       };
     },
     updateSession: async (handle, data) => {
-      console.log("updating session", handle, data);
       const { rows } = await turso.execute(
         `UPDATE Session SET data = '${data}' WHERE handle = '${handle}' RETURNING *`
       );
@@ -73,7 +70,6 @@ const blitzServerAuth = AuthServerPlugin({
       };
     },
     deleteSession: async (handle) => {
-      console.log("deleting session", handle);
       const { rows } = await turso.execute(
         `DELETE FROM Session WHERE handle = '${handle}' RETURNING *`
       );
@@ -83,7 +79,6 @@ const blitzServerAuth = AuthServerPlugin({
       };
     },
     getSessions: async (userId) => {
-      console.log("getting sessions", userId);
       const { rows } = await turso.execute(
         `SELECT * FROM Session WHERE data->>'userId' = '${userId}'`
       );
@@ -110,14 +105,11 @@ app.use(async (req, res, next) => {
 
 app.get("/", async (req, res) => {
   const session = await getSession(req, res);
-  console.log("session", session);
   res.send("OK");
 });
 
 app.get("/temp", async (req, res) => {
-  console.log("getting temperature");
   const { rows } = await turso.execute("SELECT * FROM temperature");
-  console.log("rows", rows);
   return res.json(rows);
 });
 
